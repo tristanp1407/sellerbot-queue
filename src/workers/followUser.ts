@@ -1,5 +1,3 @@
-const followUser = async (job) => {
+export const followUser = async (job) => {
   console.log(job.data);
 };
-
-module.exports = { followUser };

@@ -1,5 +1,3 @@
-const Queue = require("bull");
+import Queue, { Queue as IQueue } from "bull";
 
-const userQueue = new Queue("userQueue");
-
-module.exports = { userQueue };
+export const userQueue: IQueue = new Queue("userQueue");
