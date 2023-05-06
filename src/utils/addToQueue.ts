@@ -6,14 +6,26 @@ const { unfollowUser } = require("../workers/unfollowUser.ts");
 userQueue.process("follow", followUser);
 userQueue.process("unfollow", unfollowUser);
 
-export const addToQueue = (data) => {
-  const { action, users, userId } = data;
+export type User = {
+  username: string;
+  id: number;
+};
 
-  users.forEach((user, i) => {
+export type Task = {
+  action: "follow" | "unfollow";
+  users: User[];
+  userId: string;
+  token: string;
+};
+
+export const addToQueue = (data: Task) => {
+  const { action, users, userId, token } = data;
+
+  users.forEach((user: User, i: number) => {
     userQueue.add(
       action,
-      { user, userId },
-      { delay: 4000 * i, removeOnComplete: true, removeOnFail: true }
+      { user, userId, token },
+      { delay: 2000 * i, removeOnComplete: true, removeOnFail: true }
     );
   });
 };
