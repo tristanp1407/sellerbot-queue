@@ -54,7 +54,7 @@ userQueue.on("failed", async (job, error) => {
   }
 });
 
-const port = 5001;
+const port = process.env.PORT || 5001;
 
 server.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
