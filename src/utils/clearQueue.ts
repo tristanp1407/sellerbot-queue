@@ -8,14 +8,14 @@ export const clearQueue = async (userId: string) => {
   for (const job of delayedJobs) {
     if (job.data.userId === userId) {
       try {
-        console.log(`${userId} cleared ${delayedJobs.length} jobs`);
-        const res = await job.remove();
-        console.log(res);
+        await job.remove();
       } catch (e: any) {
         console.error(`Failed to clear a job for ${userId}: ${e.message}`);
       }
     }
   }
+
+  console.log(`${userId} cleared ${delayedJobs.length} jobs`);
 
   const socket = getSocket(userId);
 
