@@ -1,13 +1,19 @@
-import { getSocket, io } from "./webSocket";
+import { getSocket } from "./webSocket";
 
 const { userQueue } = require("./initialiseQueue.ts");
 
 export const clearQueue = async (userId: string) => {
-  console.log("Clearing queue for " + userId);
   const delayedJobs = await userQueue.getDelayed();
+
   for (const job of delayedJobs) {
     if (job.data.userId === userId) {
-      await job.remove();
+      try {
+        console.log(`${userId} cleared ${delayedJobs.length} jobs`);
+        const res = await job.remove();
+        console.log(res);
+      } catch (e: any) {
+        console.error(`Failed to clear a job for ${userId}: ${e.message}`);
+      }
     }
   }
 

@@ -1,3 +1,5 @@
+import { JobData } from "../types/job";
+
 const { userQueue } = require("./initialiseQueue.ts");
 
 const { followUser } = require("../workers/followUser.ts");
@@ -24,8 +26,16 @@ export const addToQueue = (data: Task) => {
   users.forEach((user: User, i: number) => {
     userQueue.add(
       action,
-      { user, userId, token },
+      {
+        user,
+        userId,
+        token,
+        initialTotal: users.length,
+        position: i + 1,
+      } as JobData,
       { delay: 2000 * i, removeOnComplete: true, removeOnFail: true }
     );
   });
+
+  console.log(`${userId} has added ${users.length} users to ${action}`);
 };

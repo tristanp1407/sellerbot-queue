@@ -1,13 +1,11 @@
 import axios from "axios";
-import { User } from "../utils/addToQueue";
+
 import { clearQueue } from "../utils/clearQueue";
+import { JobData } from "../types/job";
 
-type Job = {
-  data: { user: User; userId: string; token: string };
-};
-
-export const followUser = async ({ data }: Job) => {
-  const { user, token, userId } = data;
+export const followUser = async (job) => {
+  const data: JobData = job.data;
+  const { user, token, userId, initialTotal, position } = data;
   const followUrl = `https://webapi.depop.com/api/v1/follows/${user.id}/`;
 
   try {
@@ -18,12 +16,13 @@ export const followUser = async ({ data }: Job) => {
     });
 
     if (response.status === 202) {
-      console.log("✅ Followed", user.username);
       return {
         ok: true,
         username: user.username,
         action: "follow",
         userId,
+        initialTotal,
+        position,
       };
     }
   } catch (error: any) {

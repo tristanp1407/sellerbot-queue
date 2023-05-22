@@ -1,13 +1,12 @@
 import axios from "axios";
-import { User } from "../utils/addToQueue";
+
 import { clearQueue } from "../utils/clearQueue";
+import { JobData } from "../types/job";
 
-type Job = {
-  data: { user: User; userId: string; token: string };
-};
+export const unfollowUser = async (job: any) => {
+  const data: JobData = job.data;
+  const { user, token, userId, initialTotal, position } = data;
 
-export const unfollowUser = async ({ data }: Job) => {
-  const { user, token, userId } = data;
   const followUrl = `https://webapi.depop.com/api/v1/follows/${user.id}/`;
 
   try {
@@ -18,8 +17,14 @@ export const unfollowUser = async ({ data }: Job) => {
     });
 
     if (response.status === 204) {
-      console.log("✅ Unfollowed", user.username);
-      return { ok: true, username: user.username, action: "unfollow", userId };
+      return {
+        ok: true,
+        username: user.username,
+        action: "unfollow",
+        userId,
+        initialTotal,
+        position,
+      };
     }
   } catch (error: any) {
     console.error("Error unfollowing user:", error.response.statusText);
