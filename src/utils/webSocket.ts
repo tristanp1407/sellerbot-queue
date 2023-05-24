@@ -4,7 +4,7 @@ import { server } from "./server";
 // Enable CORS for http://localhost:3000
 export const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:3000", "https://sellerbot.vercel.app/"],
+    origin: ["http://localhost:3000", "https://sellerbot.vercel.app"],
     methods: ["GET", "POST"],
   },
 });
