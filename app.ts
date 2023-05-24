@@ -19,7 +19,7 @@ app.post("/clear-queue", async (req, res) => {
 });
 
 io.on("connection", (socket: Socket) => {
-  console.log("Websocket connection made");
+  // console.log("Websocket connection made");
 
   socket.on("register", (userId) => {
     userConnections.set(userId, socket);
@@ -32,7 +32,7 @@ io.on("connection", (socket: Socket) => {
         break;
       }
     }
-    console.log("WebSocket disconnected");
+    // console.log("WebSocket disconnected");
   });
 });
 
