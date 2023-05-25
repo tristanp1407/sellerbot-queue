@@ -1,9 +1,11 @@
+import { Socket } from "socket.io";
+
+import Sentry from "./src/config/sentry";
 import { userQueue } from "./src/utils/initialiseQueue";
 import { addToQueue } from "./src/utils/addToQueue";
 import { clearQueue } from "./src/utils/clearQueue";
 import { getSocket, io, userConnections } from "./src/utils/webSocket";
 import { app, server } from "./src/utils/server";
-import { Socket } from "socket.io";
 
 app.get("/", (_, res) => res.send("<h1>👋🏻</h1>"));
 
