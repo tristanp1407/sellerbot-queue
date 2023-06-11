@@ -39,6 +39,7 @@ io.on("connection", (socket: Socket) => {
 });
 
 userQueue.on("global:completed", async (_, result) => {
+  console.log("Job results: ", result);
   const jobData = JSON.parse(result);
   const socket = getSocket(jobData.userId);
 
