@@ -8,6 +8,15 @@ export const followUser = async (job) => {
   const { user, token, userId, initialTotal, position } = data;
   const followUrl = `https://webapi.depop.com/api/v1/follows/${user.id}/`;
 
+  const jobTimestamp = job.queue.delayedTimestamp;
+  const currentTimestamp = new Date().getTime();
+
+  // Check if job's timestamp is older than 30 seconds
+  if (currentTimestamp - jobTimestamp > 30000) {
+    console.log("Job's timestamp is older than 30 seconds, aborting.");
+    return;
+  }
+
   try {
     const response = await axios.put(followUrl, null, {
       headers: {
@@ -26,7 +35,7 @@ export const followUser = async (job) => {
       };
     }
   } catch (error: any) {
-    console.error("Error following user:", error.response.statusText);
     clearQueue(userId);
+    console.error("Error following user:", error.response.statusText);
   }
 };
