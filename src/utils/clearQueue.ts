@@ -19,7 +19,7 @@ export const clearQueue = async (userId: string) => {
 
   const socket = getSocket(userId);
 
-  if (socket) {
+  if (socket && delayedJobs?.length) {
     socket.emit("queue-cleared", true);
   }
 };
