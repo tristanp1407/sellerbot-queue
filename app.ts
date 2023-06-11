@@ -20,7 +20,7 @@ app.post("/clear-queue", async (req, res) => {
   res.send("Cleared queue.");
 });
 
-app.post("/obliterate", async (req, res) => {
+app.get("/obliterate", async (_, res) => {
   try {
     await userQueue.obliterate({ force: true });
     res.send("Queue has been completely obliterated");
