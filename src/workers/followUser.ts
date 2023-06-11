@@ -16,7 +16,7 @@ export const followUser = async (job) => {
   // Check if job's timestamp is older than 30 seconds
   if (currentTimestamp - jobTimestamp > 30000) {
     console.log("Job's timestamp is older than 30 seconds, aborting.");
-    return;
+    return { ok: false };
   }
 
   try {
