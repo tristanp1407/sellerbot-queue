@@ -39,12 +39,14 @@ io.on("connection", (socket: Socket) => {
 });
 
 userQueue.on("global:completed", async (_, result) => {
-  console.log("Job results: ", result);
-  const jobData = JSON.parse(result);
-  const socket = getSocket(jobData.userId);
-
-  if (socket) {
-    socket.emit("message", jobData);
+  try {
+    const jobData = JSON.parse(result);
+    const socket = getSocket(jobData.userId);
+    if (socket) {
+      socket.emit("message", jobData);
+    }
+  } catch {
+    console.log("Invalid job result, skipping emitting websocket.");
   }
 });
 
