@@ -32,7 +32,6 @@ app.get("/obliterate", async (_, res) => {
 
 io.on("connection", (socket: Socket) => {
   // console.log("Websocket connection made");
-
   socket.on("register", (userId) => {
     userConnections.set(userId, socket);
   });

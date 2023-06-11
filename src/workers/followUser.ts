@@ -11,8 +11,6 @@ export const followUser = async (job) => {
   const jobTimestamp = job.queue.delayedTimestamp;
   const currentTimestamp = new Date().getTime();
 
-  console.log(jobTimestamp);
-
   // Check if job's timestamp is older than 30 seconds
   if (currentTimestamp - jobTimestamp > 30000) {
     console.log("Job's timestamp is older than 30 seconds, aborting.");
