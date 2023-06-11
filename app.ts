@@ -20,6 +20,16 @@ app.post("/clear-queue", async (req, res) => {
   res.send("Cleared queue.");
 });
 
+app.post("/obliterate", async (req, res) => {
+  try {
+    await userQueue.obliterate({ force: true });
+    res.send("Queue has been completely obliterated");
+  } catch (error) {
+    console.error("Error obliterating queue:", error);
+    res.status(500).send("Error obliterating queue");
+  }
+});
+
 io.on("connection", (socket: Socket) => {
   // console.log("Websocket connection made");
 
